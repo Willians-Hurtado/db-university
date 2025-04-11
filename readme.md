@@ -139,3 +139,36 @@ JOIN degrees ON courses.degree_id = degrees.id
 JOIN departments ON degrees.department_id = departments.id
 JOIN teachers ON course_teacher.teacher_id = teachers.id
 WHERE departments.name = 'Dipartimento di Matematica'
+
+
+
+
+## GROUP BY
+1. Contare quanti iscritti ci sono stati ogni anno
+
+SELECT YEAR (students.enrolment_date) AS year, COUNT(*) AS number_of_students
+FROM students
+GROUP BY year
+ORDER BY year  
+
+2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+SELECT teachers.office_address AS adress, COUNT(*) AS number_of_office
+FROM teachers
+GROUP BY adress
+ORDER BY adress  
+
+3. Calcolare la media dei voti di ogni appello d'esame
+
+SELECT exam_student.exam_id AS exam, AVG(exam_student.vote) AS grade_average
+FROM exam_student
+GROUP BY exam
+ORDER BY exam 
+
+4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+SELECT departments.name AS department, COUNT(degrees.id)  AS number_of_degrees
+FROM degrees
+JOIN departments ON degrees.department_id = departments.id
+GROUP BY department
+ORDER BY department
